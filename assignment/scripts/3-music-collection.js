@@ -3,8 +3,9 @@ console.log('***** Music Collection *****')
 let collection = [];
 
 // Function to add records
+let album = {};
 function addToCollection(title, artist, yearPublished) {
-    let album = {
+    album = {
         title: title,
         artist: artist,
         yearPublished: yearPublished,
@@ -15,7 +16,7 @@ function addToCollection(title, artist, yearPublished) {
 // End addToCollection
 
 addToCollection('Car Wheels on a Gravel Road', 'Lucinda Williams', 1998); // adds album to collection.
-console.log(collection[collection.length - 1]); // logs added album.
+console.log(album); // logs added album.
 
 function showCollection(array) {
     console.log(array.length);
@@ -26,4 +27,18 @@ function showCollection(array) {
 // End showCollection.
 
 showCollection(collection);
+
+let artistCollection = [];
+function findByArtist(artist) {
+    for (let each of collection) { //Cycling through to match to albums.
+        if (artist === each.artist) { 
+            artistCollection.push(each); //If input matches entry artist, add entry to artistCollection.    
+        }
+        return artistCollection;
+    }
+}
+// End findByArtist
+
+findByArtist('Lucinda Williams');
+console.log(artistCollection);
 
