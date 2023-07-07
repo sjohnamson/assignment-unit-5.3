@@ -4,18 +4,18 @@ let collection = [];
 
 // Function to add records
 
-function addToCollection(title, artist, yearPublished) {
-    collection.push({title, artist, yearPublished});
+function addToCollection(title, artist, yearPublished, tracks) {
+    collection.push({title, artist, yearPublished, tracks});
     return collection[collection.length - 1];
 }
 // End addToCollection
 
-console.log(addToCollection('Car Wheels on a Gravel Road', 'Lucinda Williams', 1998)); // adds album to collection and logs it to the console.
-console.log(addToCollection('Anti', 'Rihanna', 2016));
-console.log(addToCollection('Heartthrob', 'Tegan and Sarah', 2013));
-console.log(addToCollection('HiRUDiN', 'Austra', 2020));
-console.log(addToCollection('Essence', 'Lucinda Williams', 2001));
-console.log(addToCollection('The Miseducation of Lauryn Hill', 'Lauryn Hill', 1998));
+console.log(addToCollection('Car Wheels on a Gravel Road', 'Lucinda Williams', 1998, [{name: 'Right in Time', duration: '4:36'}, {name: 'Car Wheels on a Gravel Road', duration: '4:44'}, {name: '2 Kool 2 Be 4-Gotten', duration: '4:42'}])); // adds album to collection and logs it to the console.
+console.log(addToCollection('Anti', 'Rihanna', 2016, [{name: 'Consideration (feat. SZA)', duration: '2:41'}, {name: 'James Joint', duration: '1:12'}, {name: 'Kiss It Better', duration: '4:13'}]));
+console.log(addToCollection('Heartthrob', 'Tegan and Sarah', 2013, [{name: 'Closer', duration: '3:29'}, {name: 'Goodbye, Goodbye', duration: '3:26'}, {name: 'I Was A Fool', duration: '3:26'}]));
+console.log(addToCollection('HiRUDiN', 'Austra', 2020, [{name: 'Anywayz', duration: '3:46'}, {name: 'All I Wanted', duration: '3:18'}, {name: 'How Did You Know', duration: '4:20'}]));
+console.log(addToCollection('Essence', 'Lucinda Williams', 2001, [{name: 'Lonely Girls', duration: '4:02'}, {name: 'Steal Your Love', duration: '3:15'}, {name: 'I Envy The Wind', duration: '3:13'}]));
+console.log(addToCollection('The Miseducation of Lauryn Hill', 'Lauryn Hill', 1998, [{name: 'Intro', duration: ':47'}, {name: 'Lost Ones', duration: '5:33'}, {name: 'Ex-Factor', duration: '5:26'}]));
 
 // Log the full collection
 console.log('This is the collection: ', collection);
@@ -36,25 +36,28 @@ showCollection(collection);
 function findByArtist(artist) {
     
     let artistCollection = [];
-    
-    for (let each of collection) { //Cycling through to match to albums.
+    //Cycling through to match to albums.
+    for (let each of collection) { 
         if (artist === each.artist) { 
-            artistCollection.push(each); //If input matches entry artist, add entry to artistCollection.    
+             //If input matches entry artist, add entry to artistCollection.
+            artistCollection.push(each);    
         }
     }
     return artistCollection;
 }
 // End findByArtist
 
-// Test findByArtist
+// Test findByArtist with artist in collection:
 console.log('Lucinda Williams records in my collection: ', findByArtist('Lucinda Williams'));
+// Test findByArtist with an artist not in collection:
+console.log('Robyn records in my collection: ', findByArtist('Robyn'));
 
 // Album search function
 function search({artist, yearPublished}) {
 
     let searchResult = [];
-
-    console.log(`in search: ${artist} ${yearPublished}`)
+    console.log(`Searching for: ${artist} ${yearPublished}`)
+    // check to see if both entries exist
     if (artist && yearPublished) {
         for (let each of collection) {
             if (each.artist == artist && each.yearPublished == yearPublished) {
@@ -68,5 +71,6 @@ function search({artist, yearPublished}) {
 };
 // End search
 
+// Test search with artist in collection:
 let searchResult = search({artist: 'Lauryn Hill', yearPublished: 1998});
 console.log('Should be an array: ', searchResult);
