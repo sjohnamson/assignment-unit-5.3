@@ -10,8 +10,12 @@ function addToCollection(title, artist, yearPublished) {
 }
 // End addToCollection
 
-console.log(addToCollection('Car Wheels on a Gravel Road', 'Lucinda Williams', 1998)); // adds album to collection.
-// logs added album.
+console.log(addToCollection('Car Wheels on a Gravel Road', 'Lucinda Williams', 1998)); // adds album to collection and logs it to the console.
+console.log(addToCollection('Anti', 'Rihanna', 2016));
+console.log(addToCollection('Heartthrob', 'Tegan and Sarah', 2013));
+console.log(addToCollection('HiRUDiN', 'Austra', 2020));
+console.log(addToCollection('Essence', 'Lucinda Williams', 2001));
+console.log(addToCollection('The Miseducation of Lauryn Hill', 'Lauryn Hill', 1998));
 
 // Log the full collection
 console.log('This is the collection: ', collection);
@@ -37,16 +41,15 @@ function findByArtist(artist) {
         if (artist === each.artist) { 
             artistCollection.push(each); //If input matches entry artist, add entry to artistCollection.    
         }
-        return artistCollection;
     }
+    return artistCollection;
 }
 // End findByArtist
 
 // Test findByArtist
 console.log('Lucinda Williams records in my collection: ', findByArtist('Lucinda Williams'));
 
-// Album search
-
+// Album search function
 function search({artist, yearPublished}) {
 
     let searchResult = [];
@@ -65,5 +68,5 @@ function search({artist, yearPublished}) {
 };
 // End search
 
-let searchResult = search({ yearPublished: 1998});
+let searchResult = search({artist: 'Lauryn Hill', yearPublished: 1998});
 console.log('Should be an array: ', searchResult);
