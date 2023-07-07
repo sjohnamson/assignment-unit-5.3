@@ -53,11 +53,29 @@ console.log('Lucinda Williams records in my collection: ', findByArtist('Lucinda
 console.log('Robyn records in my collection: ', findByArtist('Robyn'));
 
 // Album search function
-function search({artist, yearPublished}) {
-
+function search({artist, yearPublished, trackName}) {
     let searchResult = [];
-    console.log(`Searching for: ${artist} ${yearPublished}`)
-    // check to see if both entries exist
+    console.log(`Searching for: ${artist} ${yearPublished}, track: ${trackName}`)
+    // check to see if trackName exists, and if so use it to search
+    if (trackName) {
+        for (let key in collection) {
+            let album = collection[key];
+            console.log('album', album)
+            for (let item in album) {
+                let track = album[item];
+                console.log('is this a track?', track)
+               
+                for (let name in track) {
+                    console.log(track[name].name)
+                    if (track[name].name == trackName) {
+                        console.log('is this it?', name)
+                    searchResult.push(album);
+                    } 
+                }
+            }
+        }
+    } else 
+    // check to see if both artist and yearPublished exist and if so use them to search
     if (artist && yearPublished) {
         for (let each of collection) {
             if (each.artist == artist && each.yearPublished == yearPublished) {
@@ -72,5 +90,5 @@ function search({artist, yearPublished}) {
 // End search
 
 // Test search with artist in collection:
-let searchResult = search({artist: 'Lauryn Hill', yearPublished: 1998});
+let searchResult = search({artist: 'Lauryn Hill', yearPublished: 1998, trackName: 'Closer'});
 console.log('Should be an array: ', searchResult);
