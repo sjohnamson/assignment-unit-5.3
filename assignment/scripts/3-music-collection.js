@@ -2,7 +2,7 @@ console.log('***** Music Collection *****')
 // Main collection variable
 let collection = [];
 
-// Function to add records
+// Function to add records with title, artist, year, and tracks (as objects with name and duration)
 
 function addToCollection(title, artist, yearPublished, tracks) {
     collection.push({ title, artist, yearPublished, tracks });
@@ -10,6 +10,7 @@ function addToCollection(title, artist, yearPublished, tracks) {
 }
 // End addToCollection
 
+// test addToCollection and log the returned object
 console.log(addToCollection('Car Wheels on a Gravel Road', 'Lucinda Williams', 1998, [{ name: 'Right in Time', duration: '4:36' }, { name: 'Car Wheels on a Gravel Road', duration: '4:44' }, { name: '2 Kool 2 Be 4-Gotten', duration: '4:42' }])); // adds album to collection and logs it to the console.
 console.log(addToCollection('Anti', 'Rihanna', 2016, [{ name: 'Consideration (feat. SZA)', duration: '2:41' }, { name: 'James Joint', duration: '1:12' }, { name: 'Kiss It Better', duration: '4:13' }]));
 console.log(addToCollection('Heartthrob', 'Tegan and Sarah', 2013, [{ name: 'Closer', duration: '3:29' }, { name: 'Goodbye, Goodbye', duration: '3:26' }, { name: 'I Was A Fool', duration: '3:26' }]));
@@ -26,29 +27,19 @@ function showCollection(array) {
     console.log('Here are the albums in this collection, listed with showCollection:')
     for (let each of array) {
         console.log(`${each.title} by ${each.artist}, published in ${each.yearPublished}`);
-                for (let item of each.tracks) {
-                console.log(`name: ${item.name} duration: ${item.duration}`);
-            }
-    //         for (let key in collection) {
-    //             let album = collection[key];
-    //             for (let item in album) {
-    //                 let track = album[item];
-    //                 for (let name in track) {
-    //                     console.log(track[name].name)
-    //                 }
-    //             }
-                // }
-            }        
+        // Add a log of the tracks.
+        for (let item of each.tracks) {
+            console.log(`${each.tracks.indexOf(item) + 1}. NAME: ${item.name} DURATION: ${item.duration}`);
         }
-    //  }
-// }
+    }
+}
 // End showCollection.
 
+// Test show collection
 showCollection(collection);
 
 // Find all albums by one artist
 function findByArtist(artist) {
-
     let artistCollection = [];
     //Cycling through to match to albums.
     for (let each of collection) {
@@ -72,24 +63,37 @@ function search({ artist, yearPublished, trackName }) {
     console.log(`Searching for: ${artist} ${yearPublished}, track: ${trackName}`)
     // check to see if trackName exists, and if so use it to search. 
     if (trackName) {
-        for (let key in collection) {
-            let album = collection[key];
-            for (let item in album) {
-                let track = album[item];
-                for (let name in track) {
-                    if (track[name].name == trackName) {
-                        console.log('is this it?', name)
+        for (let album of collection) {
+            for (let song in album) {
+                let track = album[song];
+                for (let info in track) {
+                    if (track[info].name == trackName) {
                         searchResult.push(album);
                     }
                 }
             }
         }
+        // if (trackName) {
+        //     for (let album of collection) {
+        //         console.log(album);
+        //         for (let song in album) {
+        //             let track = album[song];
+        //                 if (track !== null && typeof track == 'object') {
+        //                     for (let info of track) {
+        //                         console.log(info.name);
+        //                         if (trackName == info.name) {
+        //                             searchResult.push(album);
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
     } else
         // check to see if both artist and yearPublished exist and if so use them to search
         if (artist && yearPublished) {
-            for (let each of collection) {
-                if (each.artist == artist && each.yearPublished == yearPublished) {
-                    searchResult.push(each);
+            for (let album of collection) {
+                if (album.artist == artist && album.yearPublished == yearPublished) {
+                    searchResult.push(album);
                 }
             }
         } else {
@@ -99,6 +103,10 @@ function search({ artist, yearPublished, trackName }) {
 };
 // End search
 
-// Test search with artist in collection:
+// Test search with song in collection:
 let searchResult = search({ artist: 'Lauryn Hill', yearPublished: 1998, trackName: 'Closer' });
-console.log('Should be an array: ', searchResult);
+console.log('Should be an array with Heartthrob album: ', searchResult);
+// Test search with an artist and year matched, but not a song
+searchResult = search({ artist: 'Lauryn Hill', yearPublished: 1998, });
+console.log('Should be an array with Miseducation album: ', searchResult);
+
